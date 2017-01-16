@@ -1,0 +1,2 @@
+# proteinSequence
+AlGO
