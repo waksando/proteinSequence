@@ -5,10 +5,11 @@
 
 import java.io.*;
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.regex.*;
 import java.util.regex.Matcher;
 import java.lang.*;
-import java.util.Scanner.*;
+
 
 
 
@@ -29,8 +30,7 @@ public class FileManipulation {
 
         final long startTime = System.nanoTime();
 
-        BufferedReader br = null;
-        FileReader fr = null;
+        Scanner fr = null;
         String stext="OS=";
         String stext2="GN=";
         String stext3="PE=";
@@ -38,9 +38,7 @@ public class FileManipulation {
 
         try {
 
-            fr = new FileReader(FILENAME);
-            br = new BufferedReader(fr);
-
+            fr=new Scanner(new File(FILENAME));
             Pattern p2 = Pattern.compile(stext);
             Pattern p3 = Pattern.compile(stext2);
             Pattern p4 = Pattern.compile(stext3);
@@ -49,11 +47,11 @@ public class FileManipulation {
             long count=0;
             int start,end;
             String str="";
-            while ((sCurrentLine = br.readLine()) != null) {
+            while (fr.hasNextLine()) {
+                sCurrentLine=fr.nextLine();
                 Matcher matcher2 = p2.matcher(sCurrentLine);
                 Matcher matcher3 = p3.matcher(sCurrentLine);
                 Matcher matcher4 = p4.matcher(sCurrentLine);
-                //System.out.println(sCurrentLine);
 
                 //id extract
                 if (sCurrentLine.charAt(0)=='>'){
@@ -67,14 +65,10 @@ public class FileManipulation {
                     if (matcher3.find()) {
                         end=matcher3.start()-1;
                         os.add(sCurrentLine.substring(start, end));
-/*                        System.out.println(matcher2.start() + " --ooo--" + matcher2.end());
-                        System.out.println(matcher3.start() + " ggg]]]]" + matcher3.end());*/
                     }
                     else if (matcher4.find()) {
                         end=matcher4.start()-1;
                         os.add(sCurrentLine.substring(start, end));
-/*                        System.out.println(matcher2.start() + "ooooo " + matcher2.end());
-                        System.out.println(matcher4.start() + "ppppp " + matcher4.end());*/
                     }
                 }
 
@@ -82,6 +76,9 @@ public class FileManipulation {
                 if (sCurrentLine.charAt(0)!='>'){
                     firstRead=true;
                     str+=sCurrentLine;
+                    if (!fr.hasNextLine()){
+                        sequence.add(str);
+                    }
                 }
                 else if (firstRead){
                     sequence.add(str);
@@ -89,7 +86,7 @@ public class FileManipulation {
                 }
             }
             System.out.println(count);
-            System.out.println("ID: "+id.size()+" OS: "+os.size()+" Sequence:\n"+sequence.size());
+            System.out.println("ID: "+id.size()+" OS: "+os.size()+" Sequence:"+sequence.size());
 /*            for (int i=0;i<sequence.size();i++){
                 System.out.println("ID: "+id.get(i)+" OS: "+os.get(i)+" Sequence:"+sequence.get(i));
             }*/
