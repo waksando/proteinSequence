@@ -4,11 +4,14 @@
 
 
 import java.io.*;
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.*;
 import java.util.regex.Matcher;
 import java.lang.*;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -44,16 +47,12 @@ public class FileManipulation {
 
         try {
 
-/*            RandomAccessFile aFile = new RandomAccessFile(FILENAME, "r");
-            FileChannel inChannel = aFile.getChannel();
-            MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());*/
             fr=new Scanner(new File(FILENAME));
             Pattern p2 = Pattern.compile(stext);
             Pattern p3 = Pattern.compile(stext2);
             Pattern p4 = Pattern.compile(stext3);
             String sCurrentLine;
 
-            //long count=0;
             int start,end;
             String str="";
             while (fr.hasNextLine()) {
@@ -64,7 +63,11 @@ public class FileManipulation {
 
                 //id extract
                 if (sCurrentLine.charAt(0)=='>'){
-                    //count++;
+                    if (firstRead){
+                        sequence=(str);
+                        protein.insertAtEnd(id,os,sequence);
+                        str="";
+                    }
                     id=(sCurrentLine.substring(4,10));
                 }
 
@@ -90,26 +93,15 @@ public class FileManipulation {
                         protein.insertAtEnd(id,os,sequence);
                     }
                 }
-                else if (firstRead){
-                    sequence=(str);
-                    protein.insertAtEnd(id,os,sequence);
-                    str="";
-                }
             }
-            //System.out.println(count);
-            //System.out.println("ID: "+id.size()+" OS: "+os.size()+" Sequence:"+sequence.size());
-/*            for (int i=0;i<sequence.size();i++){
-                System.out.println("ID: "+id.get(i)+" OS: "+os.get(i)+" Sequence:"+sequence.get(i));
-            }*/
-
         } catch (IOException e) {
             System.out.println("Error");
             e.printStackTrace();
-
         }
 
         final long duration = System.nanoTime() - startTime;
-        System.out.println("Duration: "+duration);
+        long millis= TimeUnit.SECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"s");
         return protein;
 
     }
