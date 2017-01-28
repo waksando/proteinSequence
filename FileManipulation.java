@@ -44,6 +44,9 @@ public class FileManipulation {
 
         try {
 
+/*            RandomAccessFile aFile = new RandomAccessFile(FILENAME, "r");
+            FileChannel inChannel = aFile.getChannel();
+            MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());*/
             fr=new Scanner(new File(FILENAME));
             Pattern p2 = Pattern.compile(stext);
             Pattern p3 = Pattern.compile(stext2);
@@ -84,13 +87,14 @@ public class FileManipulation {
                     str+=sCurrentLine;
                     if (!fr.hasNextLine()){
                         sequence=(str);
+                        protein.insertAtEnd(id,os,sequence);
                     }
                 }
                 else if (firstRead){
                     sequence=(str);
+                    protein.insertAtEnd(id,os,sequence);
                     str="";
                 }
-                protein.insertAtEnd(id,os,sequence);
             }
             //System.out.println(count);
             //System.out.println("ID: "+id.size()+" OS: "+os.size()+" Sequence:"+sequence.size());
