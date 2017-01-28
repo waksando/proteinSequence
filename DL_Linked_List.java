@@ -73,4 +73,13 @@ public class DL_Linked_List {
 
 
     }
+    public int countNode(){
+        int count=0;
+        DL_Node current=head;
+        while (current!=null){
+            count++;
+            current=current.getNext();
+        }
+        return count;
+    }
 }
