@@ -19,6 +19,19 @@ public class DL_Linked_List {
         size++;
     }
 
+    public DL_Node getHead(){
+        return head;
+    }
+    public void setHead(DL_Node node){
+        this.head=node;
+    }
+    public void DisplayAll(){
+        DL_Node current=head;
+        while (current!=null){
+            current.displayNode();
+            current=current.getNext();
+        }
+    }
     public void display()    {
         System.out.print("Spid \t OS \t\t\t\t Sequence \n");
         DL_Node current = head; // start at beginning of list
