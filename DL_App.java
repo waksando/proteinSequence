@@ -8,8 +8,10 @@ public class DL_App {
 
         DL_Linked_List protein;
         FileManipulation fileManipulation=new FileManipulation();
-        fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\uniprot_sprot.fasta");
+        //fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\uniprot_sprot.fasta");
+        fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\testFile.txt");
         protein=fileManipulation.ReadFile();
+        System.out.println("Total number of nodes: "+protein.countNode());
 
 
         //protein.display();
@@ -38,7 +40,10 @@ public class DL_App {
                 }
                 break;
                 case 3:{//outputCSV();
-
+                    MergeSort mergeSort=new MergeSort();
+                    DL_Linked_List OS_Sorted;
+                    OS_Sorted=mergeSort.Sort(protein,1);
+                    OS_Sorted.DisplayAll();
                 }
                 break;
             }
