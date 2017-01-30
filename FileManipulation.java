@@ -4,20 +4,29 @@
 
 
 import java.io.*;
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.*;
 import java.util.regex.Matcher;
 import java.lang.*;
+import java.util.concurrent.TimeUnit;
 
 
 
 
 public class FileManipulation {
     private String FILENAME;
-    private LinkedList<String> sequence=new LinkedList<String>();
+/*    private LinkedList<String> sequence=new LinkedList<String>();
     private LinkedList<String> id=new LinkedList<String>();
-    private LinkedList<String> os=new LinkedList<String>();
+    private LinkedList<String> os=new LinkedList<String>();*/
+    private DL_Linked_List protein=new DL_Linked_List();
+    private String id;
+    private String os;
+    private String sequence;
+
+
 
 
     private boolean firstRead=false;
@@ -26,7 +35,7 @@ public class FileManipulation {
     public void setFilename(String Filename){
         this.FILENAME=Filename;
     }
-    public void ReadFile() {
+    public DL_Linked_List ReadFile() {
 
         final long startTime = System.nanoTime();
 
@@ -44,7 +53,6 @@ public class FileManipulation {
             Pattern p4 = Pattern.compile(stext3);
             String sCurrentLine;
 
-            long count=0;
             int start,end;
             String str="";
             while (fr.hasNextLine()) {
@@ -55,8 +63,12 @@ public class FileManipulation {
 
                 //id extract
                 if (sCurrentLine.charAt(0)=='>'){
-                    count++;
-                    id.add(sCurrentLine.substring(4,10));
+                    if (firstRead){
+                        sequence=(str);
+                        protein.insertAtEnd(id,os,sequence);
+                        str="";
+                    }
+                    id=(sCurrentLine.substring(4,10));
                 }
 
                 //os extract
@@ -64,11 +76,11 @@ public class FileManipulation {
                     start=matcher2.start()+3;
                     if (matcher3.find()) {
                         end=matcher3.start()-1;
-                        os.add(sCurrentLine.substring(start, end));
+                        os=(sCurrentLine.substring(start, end));
                     }
                     else if (matcher4.find()) {
                         end=matcher4.start()-1;
-                        os.add(sCurrentLine.substring(start, end));
+                        os=(sCurrentLine.substring(start, end));
                     }
                 }
 
@@ -77,28 +89,20 @@ public class FileManipulation {
                     firstRead=true;
                     str+=sCurrentLine;
                     if (!fr.hasNextLine()){
-                        sequence.add(str);
+                        sequence=(str);
+                        protein.insertAtEnd(id,os,sequence);
                     }
                 }
-                else if (firstRead){
-                    sequence.add(str);
-                    str="";
-                }
             }
-            System.out.println(count);
-            System.out.println("ID: "+id.size()+" OS: "+os.size()+" Sequence:"+sequence.size());
-/*            for (int i=0;i<sequence.size();i++){
-                System.out.println("ID: "+id.get(i)+" OS: "+os.get(i)+" Sequence:"+sequence.get(i));
-            }*/
-
         } catch (IOException e) {
             System.out.println("Error");
             e.printStackTrace();
-
         }
 
         final long duration = System.nanoTime() - startTime;
-        System.out.println("Duration: "+duration);
+        long millis= TimeUnit.SECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"s");
+        return protein;
 
     }
 }
