@@ -4,24 +4,18 @@
 
 
 import java.io.*;
-import java.sql.Time;
-import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.*;
 import java.util.regex.Matcher;
 import java.lang.*;
-import java.util.concurrent.TimeUnit;
 
 
 
 
 public class FileManipulation {
     private String FILENAME;
-/*    private LinkedList<String> sequence=new LinkedList<String>();
-    private LinkedList<String> id=new LinkedList<String>();
-    private LinkedList<String> os=new LinkedList<String>();*/
-    private DL_Linked_List protein=new DL_Linked_List();
+    private Linked_List protein=new Linked_List();
     private String id;
     private String os;
     private String sequence;
@@ -35,7 +29,7 @@ public class FileManipulation {
     public void setFilename(String Filename){
         this.FILENAME=Filename;
     }
-    public DL_Linked_List ReadFile() {
+    public Linked_List ReadFile() {
 
         final long startTime = System.nanoTime();
 
