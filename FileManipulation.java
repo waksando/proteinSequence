@@ -4,6 +4,7 @@
 
 
 import java.io.*;
+import java.util.Formatter;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.*;
@@ -19,6 +20,7 @@ public class FileManipulation {
     private String id;
     private String os;
     private String sequence;
+    private Runtime rs;
 
 
 
@@ -92,11 +94,60 @@ public class FileManipulation {
             System.out.println("Error");
             e.printStackTrace();
         }
-
+        fr.close();
         final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.SECONDS.convert(duration,TimeUnit.NANOSECONDS);
         System.out.println("Duration: "+millis+"s");
         return protein;
+    }
 
+    public void writeCSV(protein[] list){
+        String File="Sorted.csv";
+        try {
+            FileWriter fileWriter=new FileWriter(File);
+            for (int i=0;i<list.length;i++){
+                fileWriter.append(list[i].getOs());
+                fileWriter.append(',');
+                fileWriter.append(list[i].getSpid());
+                fileWriter.append('\n');
+            }
+            fileWriter.close();
+            try {
+
+                rs.getRuntime().exec("cmd /c start notepad++ C:\\Users\\sandooyea\\yr2\\lab\\Sorted.csv");
+            }
+            catch (Throwable e){
+                System.out.println("Error");
+            }
+
+        }
+        catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+
+    public static void outputFasta(Linked_List protein, int mlen){
+        try{
+            Formatter outfile = new Formatter("Sequence.fasta");
+            Node current = protein.getHead();
+            outfile.format("Minimum length of sequence: %d\nSpid \t Sequence\n",mlen);
+            while(current != null){
+                if(current.getProtein().getSequence().length()>=mlen){
+                    outfile.format("%s \t %s\nNumber of char: %d\n",current.getProtein().getSpid(),current.getProtein().getSequence(),current.getProtein().getSequence().length());
+
+                    current = current.getNext();
+                }
+                else{
+                    current = current.getNext();
+                }
+            }
+            outfile.close();
+        }
+        catch(FileNotFoundException fnfe){
+            System.out.println("File Not Found");
+        }
+        catch(SecurityException se){
+            System.out.println("No permission");
+        }
     }
 }

@@ -6,6 +6,7 @@ public class Linked_List {
     private String []HT= new String[553249];
     private String []SEQ= new String[553249];
 
+
     private Node head;
     private Node tail;
 
@@ -22,6 +23,20 @@ public class Linked_List {
         this.tail=node;
     }
 
+
+    public protein[] ListToArray(Linked_List list){
+        protein[] arr_protein;
+        Node ori_head=list.getHead();
+        Node current=ori_head;
+        arr_protein=new protein[list.countNode()];
+        int k=0;
+        while (current!=null){
+            arr_protein[k]=(current.getProtein());
+            current=current.getNext();
+            k++;
+        }
+        return arr_protein;
+    }
     public void insertAtEnd(String s, String o, String seq) {
         Node newNode = new Node(new protein(s,o,seq));
 
@@ -139,6 +154,7 @@ public class Linked_List {
     }
 
     public void searchDH(String val){
+
         char [] V = val.toCharArray();
         int M = 553249;
         int prb = 276625;
@@ -146,7 +162,19 @@ public class Linked_List {
         int H2 = prb - Hash(V, prb);
         while(HT[H1]!=null){
             if(HT[H1].equals(val)){
-                System.out.println(val + "\t" + SEQ[H1]);//output
+                System.out.println("SwissProtID:\t"+val);
+                //System.out.println("Organism:\t\t"+os);
+                System.out.println("Sequence:");
+                System.out.print("\t\t\t\t");
+                for (int i=0;i<SEQ[H1].length();i++){
+                    System.out.print(SEQ[H1].charAt(i));
+                    if ((i%60==0)&&(i!=0)){
+                        System.out.println();
+                        System.out.print("\t\t\t\t");
+                    }
+                }
+                System.out.println();
+                //System.out.println(val + "\t" + SEQ[H1]);//output
                 return;
             }
             H1 = (H1+H2)%M;

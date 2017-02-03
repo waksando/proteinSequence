@@ -8,15 +8,7 @@ public class MergeSort {
 
     public protein[] Sort(Linked_List list,String choice){
         this.choice=choice;
-        Node ori_head=list.getHead();
-        Node current=ori_head;
-        arr_protein=new protein[list.countNode()];
-        int k=0;
-        while (current!=null){
-            arr_protein[k]=(current.getProtein());
-            current=current.getNext();
-            k++;
-        }
+        arr_protein=list.ListToArray(list);
 
         protein[] sorted_list;
         sorted_list=Merge_Sort(arr_protein);

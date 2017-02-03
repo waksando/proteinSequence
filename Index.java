@@ -6,19 +6,26 @@ import java.util.concurrent.TimeUnit;
 
 public class Index {
 
+    protected static QuickSort quickSort= new QuickSort();
+    protected static FileManipulation fileManipulation=new FileManipulation();
+    protected static MergeSort mergeSort=new MergeSort();
+    protected static InsertionSort insertionSort=new InsertionSort();
+    protected static Linked_List protein;
+
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        MergeSort mergeSort=new MergeSort();
+
 
         int choice=1;
 
-        Linked_List protein;
-        FileManipulation fileManipulation=new FileManipulation();
+
         System.out.println("Please Wait...");
         fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\uniprot_sprot.fasta");
         //fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\testFile.txt");
         protein=fileManipulation.ReadFile();
         System.out.println("Total number of nodes: "+protein.countNode());
+
 
 
         while(choice != 0){
@@ -94,7 +101,8 @@ public class Index {
                 case 2:{
                     System.out.println("Input minimum length desired of sequences: ");
                     int mlen = input.nextInt();
-                    //outputFasta(mlen);
+                    fileManipulation.outputFasta(protein,mlen);
+                    System.out.println("Done:Saved to file");
 
                 }
                 break;
@@ -118,27 +126,15 @@ public class Index {
 
                         switch (menu2) {
                             case 1: {
-                                final long startTime = System.nanoTime();
-                                protein[] OS_Sorted;
-
-                                OS_Sorted = mergeSort.Sort(protein, "osid");
-                                System.out.println("OS Size" + OS_Sorted.length);
-                                System.out.println("DONE");
-/*                                for (int i = 0; i < 9; i++) {
-                                    System.out.println(OS_Sorted[i].getOsID());
-                                }*/
-
-                                final long duration = System.nanoTime() - startTime;
-                                long millis = TimeUnit.MILLISECONDS.convert(duration, TimeUnit.NANOSECONDS);
-                                System.out.println("Duration: " + millis + "ms");
+                                Sort(1);
                             }
                             break;
                             case 2: {
-
+                                Sort(2);
                             }
                             break;
                             case 3: {
-
+                                Sort(3);
                             }
                             break;
                             default: {
@@ -155,5 +151,28 @@ public class Index {
                 break;
             }
         }
+    }
+    public static void Sort(int choice){
+        final long startTime = System.nanoTime();
+        protein[] OS_Sorted=null;
+        switch (choice){
+            case 1:{
+                OS_Sorted = mergeSort.Sort(protein, "osid");
+            }
+            break;
+            case 2:{
+                OS_Sorted=quickSort.Sort(protein);
+            }
+            break;
+            case 3:{
+                OS_Sorted=insertionSort.Sort(protein);
+            }
+            break;
+        }
+        final long duration = System.nanoTime() - startTime;
+        long millis = TimeUnit.MILLISECONDS.convert(duration, TimeUnit.NANOSECONDS);
+        System.out.println("Duration: " + millis + "ms");
+        fileManipulation.writeCSV(OS_Sorted);
+        System.out.println("DONE");
     }
 }
