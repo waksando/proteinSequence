@@ -1,5 +1,5 @@
 
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
 public class Linked_List {
@@ -109,53 +109,58 @@ public class Linked_List {
     }
 
 
-    public int Hash(char V[], int M){
+    public int prime(int k){
+        BigInteger v=new BigInteger((String.valueOf(k)));
+        return Integer.parseInt(v.nextProbablePrime().toString());
+    }
+    public int Hash(char V[], int size){
         int KEY_SIZE = V.length;
         int H = V[0];
         for(int j=1; j<KEY_SIZE; j++){
-            H = (((H*32) + V[j])%M);
+            H = (((H*32) + V[j])%size);
         }
         return H;
     }
-    public void insertDH(String val, String seq,int prb){
+    public void DHashInsert(String val, String seq,int size,int middle){
         char [] V = val.toCharArray();
-        int H1 = Hash(V, 553249);
-        int H2 = prb - Hash(V, prb);
+        int H1 = Hash(V, size);
+        int H2 = middle - Hash(V, middle);
         while(HT[H1]!=null){
-            H1 = (H1+H2)%553249;
+            H1 = (H1+H2)%size;
         }
         HT[H1] = val;
         SEQ[H1]=seq;
     }
 
-    public void FillHashTableDH(){
+    public void DHFill(){
         final long startTime = System.nanoTime();
-        Node current = head;
+        Node current = head;							//start at first node
         String id;
-        int prb = 276625;
         String seq;
+        int size=prime(countNode());					//next prime number
+        int middle=size/2; 								//middle position of hash table
         while(current!=null){
-            id = current.getProtein().getSpid();
-            seq= current.getProtein().getSequence();
-            insertDH(id, seq, prb);
-            current = current.getNext();
+            id = current.getProtein().getSpid();		//retrieving the id
+            seq= current.getProtein().getSequence();	//retrieving the sequence
+            DHashInsert(id, seq,size,middle);						//filling the HashTable
+            current = current.getNext();				//next node
         }
         final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
         System.out.println("Duration: "+millis+"ms");
     }
 
-    public void searchDH(String val){
-
+    public void DHashSearch(String val){
+        final long startTime = System.nanoTime();
+        int size=prime(countNode());
+        int middle=size/2;
         char [] V = val.toCharArray();
-        int M = 553249;
-        int prb = 276625;
-        int H1 = Hash(V,M);
-        int H2 = prb - Hash(V, prb);
+
+        int H1=Hash(V,size);
+        int H2 = middle - Hash(V, middle);
         while(HT[H1]!=null){
             if(HT[H1].equals(val)){
                 System.out.println("SwissProtID:\t"+val);
-                //System.out.println("Organism:\t\t"+os);
                 System.out.println("Sequence:");
                 System.out.print("\t\t\t\t");
                 for (int i=0;i<SEQ[H1].length();i++){
@@ -166,12 +171,18 @@ public class Linked_List {
                     }
                 }
                 System.out.println();
-                //System.out.println(val + "\t" + SEQ[H1]);//output
+                final long duration = System.nanoTime() - startTime;
+                long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+                System.out.println("Duration: "+millis+"ms");
                 return;
             }
-            H1 = (H1+H2)%M;
+            H1 = (H1+H2)%size;
         }
         System.out.println("Not Found");
+        final long duration = System.nanoTime() - startTime;
+        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"ms");
     }
+
 
 }
