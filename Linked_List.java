@@ -1,9 +1,8 @@
-
 import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
 public class Linked_List {
-    private String []HT= new String[553249];
+    private String []ID= new String[553249];
     private String []SEQ= new String[553249];
 
 
@@ -61,7 +60,7 @@ public class Linked_List {
 
 
     public void SequentialSearch(String spid){
-        //final long startTime = System.nanoTime();
+    
 
         Node current = head; // start at first node
         while (current!=null){
@@ -76,13 +75,11 @@ public class Linked_List {
             System.out.println("Not found");
         }
 
-/*        final long duration = System.nanoTime() - startTime;
-        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");*/
+
     }
 
     public void BinarySearch(String spid,protein[] LinkArray) { //searching
-        //final long startTime = System.nanoTime();
+       
         int low = 0;
         int high = LinkArray.length;
 
@@ -103,9 +100,7 @@ public class Linked_List {
                 high = mid-1;
             }
         }
-/*        final long duration = System.nanoTime() - startTime;
-        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");*/
+
     }
 
 
@@ -125,15 +120,15 @@ public class Linked_List {
         char [] V = val.toCharArray();
         int H1 = Hash(V, size);
         int H2 = middle - Hash(V, middle);
-        while(HT[H1]!=null){
+        while(ID[H1]!=null){
             H1 = (H1+H2)%size;
         }
-        HT[H1] = val;
+        ID[H1] = val;
         SEQ[H1]=seq;
     }
 
     public void DHFill(){
-        //final long startTime = System.nanoTime();
+      
         Node current = head;							//start at first node
         String id;
         String seq;
@@ -145,42 +140,36 @@ public class Linked_List {
             DHashInsert(id, seq,size,middle);						//filling the HashTable
             current = current.getNext();				//next node
         }
-/*        final long duration = System.nanoTime() - startTime;
-        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");*/
+
     }
 
     public void DHashSearch(String val){
-        //final long startTime = System.nanoTime();
+      
         int size=prime(countNode());
         int middle=size/2;
         char [] V = val.toCharArray();
 
         int H1=Hash(V,size);
         int H2 = middle - Hash(V, middle);
-        while(HT[H1]!=null){
-            if(HT[H1].equals(val)){
+        while(ID[H1]!=null){
+            if(ID[H1].equals(val)){
                 System.out.println("SwissProtID:\t"+val);
                 System.out.println("Sequence:");
-                System.out.print("\t\t\t\t");
+                System.out.print("\t\t");
                 for (int i=0;i<SEQ[H1].length();i++){
                     System.out.print(SEQ[H1].charAt(i));
                     if ((i%60==0)&&(i!=0)){
                         System.out.println();
-                        System.out.print("\t\t\t\t");
+                        System.out.print("\t\t");
                     }
                 }
                 System.out.println();
-/*                final long duration = System.nanoTime() - startTime;
-                long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-                System.out.println("Duration: "+millis+"ms");*/
+             
                 return;
             }
             H1 = (H1+H2)%size;
         }
         System.out.println("Not Found");
-/*        final long duration = System.nanoTime() - startTime;
-        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");*/
+
     }
 }
