@@ -13,13 +13,9 @@ public class Node {
     }
 
     public void setPrev(Node p){prev = p;}
-    public Node getPrev(){return prev;}
     public void setNext(Node n){next = n;}
     public Node getNext(){return next;}
     public protein getProtein(){
         return p;
-    }
-    public void setProtein(protein P){
-        this.p=p;
     }
 }

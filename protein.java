@@ -11,9 +11,6 @@ public class protein {
         sequence = seq;
     }
 
-    public void setSpid(String s){spid = s;}
-    public void setOs(String o){os = o;}
-    public void setSequence(String seq){sequence = seq;}
 
     public String getSpid(){return spid;}
     public String getOs(){return os;}
@@ -21,14 +18,14 @@ public class protein {
 
     public void displayNode(){
         System.out.println("SwissProtID:\t"+spid);
-        System.out.println("Organism:\t\t"+os);
+        System.out.println("Organism:\t"+os);
         System.out.println("Sequence:");
-        System.out.print("\t\t\t\t");
+        System.out.print("\t\t");
         for (int i=0;i<sequence.length();i++){
             System.out.print(sequence.charAt(i));
             if ((i%60==0)&&(i!=0)){
                 System.out.println();
-                System.out.print("\t\t\t\t");
+                System.out.print("\t\t");
             }
         }
         System.out.println();

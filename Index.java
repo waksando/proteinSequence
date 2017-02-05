@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -19,10 +18,9 @@ public class Index {
 
         int choice=1;
 
-
         System.out.println("Please Wait...");
-        fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\uniprot_sprot.fasta");
-        //fileManipulation.setFilename("C:\\Users\\sandooyea\\yr2\\lab\\src\\testFile.txt");
+        //fileManipulation.setFilename(args[0]);
+        fileManipulation.setFilename("testFile.txt");
         protein=fileManipulation.ReadFile();
         System.out.println("Total number of nodes: "+protein.countNode());
 
@@ -76,13 +74,9 @@ public class Index {
                             }
                             break;
                             case 2: {
-                                ArrayList<protein> arrayListProtein = new ArrayList<>();
                                 protein[] OS_Sorted;
                                 OS_Sorted = mergeSort.Sort(protein, "id");
-                                for (int i = 0; i < OS_Sorted.length; i++) {
-                                    arrayListProtein.add(OS_Sorted[i]);
-                                }
-                                protein.BinarySearch(spid, arrayListProtein);
+                                protein.BinarySearch(spid, OS_Sorted);
                             }
                             break;
                             case 3: {

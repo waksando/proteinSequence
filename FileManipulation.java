@@ -39,6 +39,7 @@ public class FileManipulation {
         String stext="OS=";
         String stext2="GN=";
         String stext3="PE=";
+        StringBuilder idBuider=new StringBuilder();
 
 
         try {
@@ -63,8 +64,14 @@ public class FileManipulation {
                         sequence=(str);
                         protein.insertAtEnd(id,os,sequence);
                         str="";
+                        idBuider.setLength(0);
                     }
-                    id=(sCurrentLine.substring(4,10));
+                    int idCount=4;
+                    while (sCurrentLine.charAt(idCount)!='|'){
+                        idBuider.append(sCurrentLine.charAt(idCount));
+                        idCount++;
+                    }
+                    id=idBuider.toString();
                 }
 
                 //os extract
@@ -126,7 +133,7 @@ public class FileManipulation {
         }
     }
 
-    public static void outputFasta(Linked_List protein, int mlen){
+    public void outputFasta(Linked_List protein, int mlen){
         try{
             Formatter outfile = new Formatter("Sequence.fasta");
             Node current = protein.getHead();
@@ -142,6 +149,13 @@ public class FileManipulation {
                 }
             }
             outfile.close();
+            try {
+
+                rs.getRuntime().exec("cmd /c start notepad++ C:\\Users\\sandooyea\\yr2\\lab\\Sequence.fasta");
+            }
+            catch (Throwable e){
+                System.out.println("Error");
+            }
         }
         catch(FileNotFoundException fnfe){
             System.out.println("File Not Found");
