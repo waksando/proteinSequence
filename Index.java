@@ -19,9 +19,13 @@ public class Index {
         int choice=1;
 
         System.out.println("Please Wait...");
-        //fileManipulation.setFilename(args[0]);
-        //fileManipulation.setFilename("testFile.txt");
-        fileManipulation.setFilename("uniprot_sprot.fasta");
+        if (args.length!=0) {
+            fileManipulation.setFilename(args[0]);
+        }
+        else {
+            fileManipulation.setFilename("uniprot_sprot.fasta");
+        }
+
         protein=fileManipulation.ReadFile();
 
         protein.DHFill();
@@ -42,9 +46,9 @@ public class Index {
                 case 1: {
                     int menu1 = 1;
                     while (menu1 != 0) {
-                        System.out.println("1.Sequential Search");
-                        System.out.println("2.Binary Search");
-                        System.out.println("3.Hash Search");
+                        System.out.println("1.Binary Search(fastest)");
+                        System.out.println("2.Hash Search");
+                        System.out.println("3.Sequential Search(Slowest)");
                         System.out.println("0.BACK");
                         System.out.println("Input choice: ");
                         menu1=InputNum();
@@ -59,17 +63,17 @@ public class Index {
 
                         switch (menu1) {
                             case 1: {
-                                protein.SequentialSearch(spid);
-                            }
-                            break;
-                            case 2: {
                                 protein[] OS_Sorted;
                                 OS_Sorted = mergeSort.Sort(protein, "id");
                                 protein.BinarySearch(spid, OS_Sorted);
                             }
                             break;
-                            case 3: {
+                            case 2: {
                                 protein.DHashSearch(spid);
+                            }
+                            break;
+                            case 3: {
+                                protein.SequentialSearch(spid);
                             }
                             break;
                         }
@@ -87,9 +91,9 @@ public class Index {
                 case 3: {
                     int menu2 = 1;
                     while (menu2 != 0) {
-                        System.out.println("1.MergeSort");
+                        System.out.println("1.MergeSort(Fastest)");
                         System.out.println("2.QuickSort");
-                        System.out.println("3.InsertionSort");
+                        System.out.println("3.InsertionSort(Slowest.Try at your own risk(1-2hrs))");
                         System.out.println("0.BACK");
                         System.out.println("Input choice: ");
 

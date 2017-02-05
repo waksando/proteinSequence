@@ -122,7 +122,7 @@ public class FileManipulation {
             fileWriter.close();
             try {
 
-                rs.getRuntime().exec("cmd /c start notepad++ C:\\Users\\sandooyea\\yr2\\lab\\Sorted.csv");
+                rs.getRuntime().exec("cmd /c start notepad++ Sorted.csv");
             }
             catch (Throwable e){
                 System.out.println("Error");
@@ -152,7 +152,7 @@ public class FileManipulation {
             outfile.close();
             try {
 
-                rs.getRuntime().exec("cmd /c start notepad++ C:\\Users\\sandooyea\\yr2\\lab\\Sequence.fasta");
+                rs.getRuntime().exec("cmd /c start notepad++ Sequence.fasta");
             }
             catch (Throwable e){
                 System.out.println("Error");
