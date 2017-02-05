@@ -60,7 +60,7 @@ public class Linked_List {
 
 
     public void SequentialSearch(String spid){
-    
+        //final long startTime = System.nanoTime();
 
         Node current = head; // start at first node
         while (current!=null){
@@ -75,11 +75,13 @@ public class Linked_List {
             System.out.println("Not found");
         }
 
-
+/*        final long duration = System.nanoTime() - startTime;
+        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
     public void BinarySearch(String spid,protein[] LinkArray) { //searching
-       
+        //final long startTime = System.nanoTime();
         int low = 0;
         int high = LinkArray.length;
 
@@ -100,7 +102,9 @@ public class Linked_List {
                 high = mid-1;
             }
         }
-
+/*        final long duration = System.nanoTime() - startTime;
+        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
 
@@ -128,7 +132,7 @@ public class Linked_List {
     }
 
     public void DHFill(){
-      
+        //final long startTime = System.nanoTime();
         Node current = head;							//start at first node
         String id;
         String seq;
@@ -140,11 +144,13 @@ public class Linked_List {
             DHashInsert(id, seq,size,middle);						//filling the HashTable
             current = current.getNext();				//next node
         }
-
+/*        final long duration = System.nanoTime() - startTime;
+        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
     public void DHashSearch(String val){
-      
+        //final long startTime = System.nanoTime();
         int size=prime(countNode());
         int middle=size/2;
         char [] V = val.toCharArray();
@@ -164,12 +170,16 @@ public class Linked_List {
                     }
                 }
                 System.out.println();
-             
+/*                final long duration = System.nanoTime() - startTime;
+                long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+                System.out.println("Duration: "+millis+"ms");*/
                 return;
             }
             H1 = (H1+H2)%size;
         }
         System.out.println("Not Found");
-
+/*        final long duration = System.nanoTime() - startTime;
+        long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
+        System.out.println("Duration: "+millis+"ms");*/
     }
 }
