@@ -20,7 +20,8 @@ public class Index {
 
         System.out.println("Please Wait...");
         //fileManipulation.setFilename(args[0]);
-        fileManipulation.setFilename("testFile.txt");
+        //fileManipulation.setFilename("testFile.txt");
+        fileManipulation.setFilename("uniprot_sprot.fasta");
         protein=fileManipulation.ReadFile();
 
         protein.DHFill();

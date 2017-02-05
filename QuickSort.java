@@ -24,10 +24,10 @@ public class QuickSort {
         protein pivot = array[low + (high - low) / 2];
 
         while (i <= j) {
-            while (array[i].getOsID().compareTo(pivot.getOsID()) < 0) {
+            while (array[i].getOsID().compareToIgnoreCase(pivot.getOsID()) < 0) {
                 i++; //finding element greater than pivot
             }
-            while (array[j].getOsID().compareTo(pivot.getOsID()) > 0) {
+            while (array[j].getOsID().compareToIgnoreCase(pivot.getOsID()) > 0) {
                 j--; //finding element less than pivot
             }
 

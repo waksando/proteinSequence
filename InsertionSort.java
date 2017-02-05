@@ -16,17 +16,12 @@ public class InsertionSort {
 
             protein key = ArrPro[i];
             int j = i-1;
-            while((j>=0) && ((ArrPro[j].getSpid()).compareTo(key.getSpid())>0)){
+            while((j>=0) && ((ArrPro[j].getOsID()).compareToIgnoreCase(key.getOsID())>0)){
                 ArrPro[j+1]=ArrPro[j];
                 j=j-1;
             }
             ArrPro[j+1]=key;
-            System.out.println(ArrPro[j+1].getSpid());
         }
-        for(int k = 0;k<10;k++){
-            ArrPro[k].displayNode();
-        }
-
         return ArrPro;
     }
 }

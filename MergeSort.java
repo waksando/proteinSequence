@@ -67,7 +67,7 @@ public class MergeSort {
                 data1=list1[i].getSpid();
                 data2=list2[j].getSpid();
             }
-            if (data1.compareTo(data2)<0){
+            if (data1.compareToIgnoreCase(data2)<0){
                 result[k]=(list1[i]);
                 i++;
             }

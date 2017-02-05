@@ -31,9 +31,10 @@ public class FileManipulation {
     public void setFilename(String Filename){
         this.FILENAME=Filename;
     }
+
     public Linked_List ReadFile() {
 
-        final long startTime = System.nanoTime();
+        //final long startTime = System.nanoTime();
 
         Scanner fr = null;
         String stext="OS=";
@@ -102,9 +103,9 @@ public class FileManipulation {
             e.printStackTrace();
         }
         fr.close();
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.SECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"s");
+        System.out.println("Duration: "+millis+"s");*/
         return protein;
     }
 
