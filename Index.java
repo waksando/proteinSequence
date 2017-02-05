@@ -22,7 +22,6 @@ public class Index {
         //fileManipulation.setFilename(args[0]);
         fileManipulation.setFilename("testFile.txt");
         protein=fileManipulation.ReadFile();
-        System.out.println("Total number of nodes: "+protein.countNode());
 
         protein.DHFill();
 
@@ -32,17 +31,12 @@ public class Index {
             System.out.println("3. Output to a CSV file a list of SwissProt ID and their organism (OS) sorted by organism then SwissProt ID ");
             System.out.println("0. Exit");
             System.out.println("Input choice: ");
-            try {
-                choice = input.nextInt();
-            }
-            catch (InputMismatchException e){
-                System.out.println("Error");
-                choice=1;
-            }
+            choice=InputNum();
+
             if (choice==0){
                 break;
             }
-            System.out.println("");
+            System.out.println();
             switch(choice){
                 case 1: {
                     int menu1 = 1;
@@ -52,13 +46,7 @@ public class Index {
                         System.out.println("3.Hash Search");
                         System.out.println("0.BACK");
                         System.out.println("Input choice: ");
-                        try {
-                            menu1 = input.nextInt();
-                        }
-                        catch (InputMismatchException e){
-                            System.out.println("Error");
-                            menu1=0;
-                        }
+                        menu1=InputNum();
 
                         if (menu1==0){
                             break;
@@ -83,10 +71,6 @@ public class Index {
                                 protein.DHashSearch(spid);
                             }
                             break;
-                            default:{
-                                System.out.println("Wrong Choice,Please Try Again");
-                            }
-                            break;
                         }
                     }
                 }
@@ -107,12 +91,9 @@ public class Index {
                         System.out.println("3.InsertionSort");
                         System.out.println("0.BACK");
                         System.out.println("Input choice: ");
-                        try {
-                            menu2 = input.nextInt();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error");
-                            menu2 = 0;
-                        }
+
+                        menu2=InputNum();
+
                         if (menu2 == 0) {
                             break;
                         }
@@ -130,23 +111,37 @@ public class Index {
                                 Sort(3);
                             }
                             break;
-                            default: {
-                                System.out.println("Wrong Choice,Please Try Again");
-                            }
-                            break;
                         }
                     }
-                }
-                break;
-                default:{
-                    System.out.println("Wrong Choice,Please Try Again");
                 }
                 break;
             }
         }
     }
+    public static int InputNum(){
+        int num;
+        Scanner input=new Scanner(System.in);
+        do {
+            try {
+                num = input.nextInt();
+
+                if ((num >= 0) && (num <= 3)){
+                    break;
+                }
+
+            } catch (InputMismatchException e) {}
+            finally {
+                input.nextLine();
+            }
+
+            System.out.print("Input must be a number between 0 and 3: ");
+        } while (true);
+
+        return num;
+    }
+
     public static void Sort(int choice){
-        final long startTime = System.nanoTime();
+        //final long startTime = System.nanoTime();
         protein[] OS_Sorted=null;
         switch (choice){
             case 1:{
@@ -162,10 +157,10 @@ public class Index {
             }
             break;
         }
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis = TimeUnit.MILLISECONDS.convert(duration, TimeUnit.NANOSECONDS);
-        System.out.println("Duration: " + millis + "ms");
+        System.out.println("Duration: " + millis + "ms");*/
         fileManipulation.writeCSV(OS_Sorted);
-        System.out.println("DONE");
+        System.out.println("DONE: Saved to file");
     }
 }
