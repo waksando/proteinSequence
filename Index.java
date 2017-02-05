@@ -24,7 +24,7 @@ public class Index {
         protein=fileManipulation.ReadFile();
         System.out.println("Total number of nodes: "+protein.countNode());
 
-
+        protein.DHFill();
 
         while(choice != 0){
             System.out.println("1. Display sequence of specific SwissProt ID: ");
@@ -80,8 +80,7 @@ public class Index {
                             }
                             break;
                             case 3: {
-                                protein.FillHashTableDH();
-                                protein.searchDH(spid);
+                                protein.DHashSearch(spid);
                             }
                             break;
                             default:{
