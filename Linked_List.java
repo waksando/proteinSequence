@@ -13,15 +13,7 @@ public class Linked_List {
     public Node getHead(){
         return head;
     }
-    public void setHead(Node node){
-        this.head=node;
-    }
-    public Node getTail(){
-        return head;
-    }
-    public void setTail(Node node){
-        this.tail=node;
-    }
+
 
 
     public protein[] ListToArray(Linked_List list){
@@ -89,18 +81,18 @@ public class Linked_List {
         System.out.println("Duration: "+millis+"ms");
     }
 
-    public void BinarySearch(String spid,ArrayList<protein> LinkArray) { //searching
+    public void BinarySearch(String spid,protein[] LinkArray) { //searching
         final long startTime = System.nanoTime();
         int low = 0;
-        int high = LinkArray.size();
+        int high = LinkArray.length;
 
         while(low<=high){
             int mid = low+(high-low)/2;
 
-            int decisionParameter = (LinkArray.get(mid).getSpid()).compareTo(spid);
-            if(LinkArray.get(mid).getSpid().equals(spid)){
+            int decisionParameter = (LinkArray[mid].getSpid()).compareTo(spid);
+            if(LinkArray[mid].getSpid().equals(spid)){
                 System.out.println("Id Found");
-                LinkArray.get(mid).displayNode();
+                LinkArray[mid].displayNode();
                 System.out.println("");
                 break;
             }
