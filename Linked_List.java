@@ -1,28 +1,20 @@
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Linked_List {
-	private String []HT= new String[size()];
-	 private String []SEQ= new String[size()];
-	 int middle=size()/2;				//middle position of hash table
-	
+    private String []HT= new String[size()];
+    private String []SEQ= new String[size()];
+    private int middle=size()/2;//middle position of hash table
+
+
     private Node head;
     private Node tail;
 
     public Node getHead(){
         return head;
     }
-    public void setHead(Node node){
-        this.head=node;
-    }
-    public Node getTail(){
-        return head;
-    }
-    public void setTail(Node node){
-        this.tail=node;
-    }
+
 
 
     public protein[] ListToArray(Linked_List list){
@@ -70,7 +62,7 @@ public class Linked_List {
 
 
     public void SequentialSearch(String spid){
-        final long startTime = System.nanoTime();
+        //final long startTime = System.nanoTime();
 
         Node current = head; // start at first node
         while (current!=null){
@@ -85,23 +77,23 @@ public class Linked_List {
             System.out.println("Not found");
         }
 
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
-    public void BinarySearch(String spid,ArrayList<protein> LinkArray) { //searching
-        final long startTime = System.nanoTime();
+    public void BinarySearch(String spid,protein[] LinkArray) { //searching
+        //final long startTime = System.nanoTime();
         int low = 0;
-        int high = LinkArray.size();
+        int high = LinkArray.length;
 
         while(low<=high){
             int mid = low+(high-low)/2;
 
-            int decisionParameter = (LinkArray.get(mid).getSpid()).compareTo(spid);
-            if(LinkArray.get(mid).getSpid().equals(spid)){
+            int decisionParameter = (LinkArray[mid].getSpid()).compareTo(spid);
+            if(LinkArray[mid].getSpid().equals(spid)){
                 System.out.println("Id Found");
-                LinkArray.get(mid).displayNode();
+                LinkArray[mid].displayNode();
                 System.out.println("");
                 break;
             }
@@ -112,19 +104,20 @@ public class Linked_List {
                 high = mid-1;
             }
         }
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");
-    }
-    public int prime(int k){
-    	BigInteger v=new BigInteger(String.valueOf(k));
-    	return Integer.parseInt(v.nextProbablePrime().toString());
-    }
-    public int size(){						//next prime number 
-    	return prime(countNode());
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
-    public int Hash(char V[],int size){
+
+    public int prime(int k){
+        BigInteger v=new BigInteger((String.valueOf(k)));
+        return Integer.parseInt(v.nextProbablePrime().toString());
+    }
+    public int size(){
+        return prime(countNode());
+    }
+    public int Hash(char V[], int size){
         int SIZE = V.length;
         int H = V[0];
         for(int j=1; j<SIZE; j++){
@@ -133,36 +126,36 @@ public class Linked_List {
         return H;
     }
     public void DHashInsert(String val, String seq){
-       
-    	char [] V = val.toCharArray();
+        char [] V = val.toCharArray();
         int H1 = Hash(V, size());
         int H2 = middle - Hash(V, middle);
         while(HT[H1]!=null){
             H1 = (H1+H2)%size();
-            		}
+        }
         HT[H1] = val;
         SEQ[H1]=seq;
     }
 
     public void DHFill(){
-    	final long startTime = System.nanoTime();
-        Node current = head;							//start at first node 
+        //final long startTime = System.nanoTime();
+        Node current = head;							//start at first node
         String id;
-        String seq; 								
+        String seq;
         while(current!=null){
-            id = current.getProtein().getSpid();		//retrieving the id 
+            id = current.getProtein().getSpid();		//retrieving the id
             seq= current.getProtein().getSequence();	//retrieving the sequence
             DHashInsert(id, seq);						//filling the HashTable
-            current = current.getNext();				//next node	
+            current = current.getNext();				//next node
         }
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");
+        System.out.println("Duration: "+millis+"ms");*/
     }
 
     public void DHashSearch(String val){
-    	final long startTime = System.nanoTime();
-    	char [] V = val.toCharArray();
+        //final long startTime = System.nanoTime();
+        char [] V = val.toCharArray();
+
         int H1=Hash(V,size());
         int H2 = middle - Hash(V, middle);
         while(HT[H1]!=null){
@@ -178,17 +171,16 @@ public class Linked_List {
                     }
                 }
                 System.out.println();
-                final long duration = System.nanoTime() - startTime;
+/*                final long duration = System.nanoTime() - startTime;
                 long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-                System.out.println("Duration: "+millis+"ms");
+                System.out.println("Duration: "+millis+"ms");*/
                 return;
             }
             H1 = (H1+H2)%size();
         }
         System.out.println("Not Found");
-        final long duration = System.nanoTime() - startTime;
+/*        final long duration = System.nanoTime() - startTime;
         long millis= TimeUnit.MILLISECONDS.convert(duration,TimeUnit.NANOSECONDS);
-        System.out.println("Duration: "+millis+"ms");
+        System.out.println("Duration: "+millis+"ms");*/
     }
-
 }
